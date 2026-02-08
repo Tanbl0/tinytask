@@ -1,8 +1,15 @@
 
 import sqlite3 from 'sqlite3';
+import fs from 'fs';
 import path from 'path';
 
 const dbPath = path.resolve(__dirname, '../data/tinytask.db');
+const dbDir = path.dirname(dbPath);
+
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir, { recursive: true });
+}
+
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
     console.error('Could not connect to database', err);
